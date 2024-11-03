@@ -29,4 +29,4 @@ if __name__ == "__main__":
         client.publish(topic, message)
         print(f"Published: {message} to topic: {topic}")
 
-        time.sleep(5)
+        time.sleep(5) # you can change the frequency of generating new data

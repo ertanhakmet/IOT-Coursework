@@ -3,11 +3,11 @@ import time
 
 # This function simulates fake temperature data between 15 and 30 degrees
 def simulate_temp():
-    return round(random.uniform(15.0, 30.0), 2)
+    return round(random.uniform(15.0, 30.0), 2) # you can change temperature levels
 
 # This function simulates fake humidity data between 30 to 60 percent
 def simulate_hum():
-    return round(random.uniform(30.0, 60.0), 2)
+    return round(random.uniform(30.0, 60.0), 2) # you can change humidity levels
 
 if __name__ == "__main__":
     while True:
@@ -17,5 +17,5 @@ if __name__ == "__main__":
         print(f"Temperature: {temp} C")
         print(f"Humidity: {hum}%")
     
-        time.sleep(5)
+        time.sleep(5) # you can change the frequency of generating new data
     
