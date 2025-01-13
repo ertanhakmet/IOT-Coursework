@@ -1,10 +1,12 @@
 import sys
 import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
+import json
 import paho.mqtt.client as mqtt
 import time
+
+# Add the path to the simulation script
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from src.simulation.simulation_data import simulate_temp, simulate_hum
 
 # Set up MQTT Broker Details
@@ -18,15 +20,16 @@ client.connect(broker, port)
 
 if __name__ == "__main__":
     while True:
-        # simulate data
+        # Simulate data
         temp = simulate_temp()
         hum = simulate_hum()
 
-        # create a message in JSON format
-        message = f'{{"temperature": {temp}, "humidity": {hum}}}'
+        # Create a message in JSON format using json.dumps to ensure proper JSON formatting
+        message = json.dumps({"temperature": temp, "humidity": hum})
 
-        # publish the message to the MQTT topic
+        # Publish the message to the MQTT topic
         client.publish(topic, message)
         print(f"Published: {message} to topic: {topic}")
 
-        time.sleep(5) # you can change the frequency of generating new data
+        # Sleep for 5 seconds before generating new data; adjust the frequency as needed
+        time.sleep(5)
