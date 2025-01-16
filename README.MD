@@ -3,7 +3,7 @@
 ## Project Overview
 This project aims to develop and simulate a smart home temperature and humidity monitoring system
 
-![Dashboard Screenshot](./Dashboard.png)
+![Dashboard Screenshot](./images/Dashboard.png)
 
 ## Technologies Used
 - **MQTT**: For data communication
@@ -14,6 +14,8 @@ This project aims to develop and simulate a smart home temperature and humidity 
 - **DHT22 Sensor**: Measures temperature and humidity.
 - **ESP8266 NodeMCU 1.0**: WiFi-enabled microcontroller for sending data online.
 - **Arduino Uno**: Microcontroller
+
+![Components Screenshot](./images/Hardware.png)
 
 ## Setup and Installation
 ### Prerequisites
