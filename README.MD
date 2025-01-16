@@ -24,12 +24,12 @@ This project aims to develop and simulate a smart home temperature and humidity 
 - MQTT broker setup (e.g., Mosquitto)
 
 # Dependencies
-following Python libraries:
+Following Python libraries:
 - `paho-mqtt`: For handling MQTT communications
 - `json`: For parsing and constructing JSON objects
 
 ### Installing Libraries
 Ensure you have the following libraries installed for your Arduino setup:
-DHT.h
-ESP8266WiFi.h
-PubSubClient.h
+- `DHT.h`
+- `ESP8266WiFi.h`
+- `PubSubClient.h`
