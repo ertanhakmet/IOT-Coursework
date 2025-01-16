@@ -33,3 +33,6 @@ Ensure you have the following libraries installed for your Arduino setup:
 - `DHT`
 - `ESP8266WiFi`
 - `PubSubClient`
+
+## License
+This project is released under the MIT License, allowing free use, modification, and distribution.
