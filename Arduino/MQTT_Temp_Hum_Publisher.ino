@@ -2,15 +2,15 @@
 #include <PubSubClient.h>
 
 // WiFi and MQTT Configuration
-const char* ssid = "iPhone";           // WiFi SSID
-const char* password = "ertanhak";     // WiFi password
-const char* mqtt_server = "172.20.10.2";   // MQTT Broker IP
-const char* mqtt_topic = "home/temperature";  // MQTT topic for publishing
+const char* ssid = "iPhone";           
+const char* password = "ertanhak";     
+const char* mqtt_server = "172.20.10.2";   
+const char* mqtt_topic = "home/temperature";  
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// Function to setup WiFi connection
+// Setup wifi connection
 void setup_wifi() {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -22,7 +22,7 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-// Function to handle MQTT connection and reconnection
+// Handle MQTT
 void reconnect() {
   while (!client.connected()) {
     if (client.connect("ESP8266Client")) {
@@ -37,19 +37,17 @@ void reconnect() {
 }
 
 void setup() {
-  Serial.begin(9600);  // Initialize serial
-  setup_wifi();        // Setup WiFi connection
-  client.setServer(mqtt_server, 1883);  // Configure MQTT server
+  Serial.begin(9600);  
+  setup_wifi();        
+  client.setServer(mqtt_server, 1883);  
 }
 
 void loop() {
-  // Ensure MQTT connection
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
 
-  // Check if data is available on Serial
   if (Serial.available()) {
     String data = Serial.readStringUntil('\n');
     int separator = data.indexOf(',');
@@ -58,13 +56,12 @@ void loop() {
       float humidity = data.substring(0, separator).toFloat();
       float temperature = data.substring(separator + 1).toFloat();
       
-      // Create JSON payload
+      // Put the data in JSON format
       String payload = "{\"humidity\":" + String(humidity) + ",\"temperature\":" + String(temperature) + "}";
       
-      // Publish to MQTT
+      // Publish data
       client.publish(mqtt_topic, payload.c_str());
       
-      // Debug output
       Serial.print("Published to ");
       Serial.print(mqtt_topic);
       Serial.print(": ");
