@@ -30,6 +30,6 @@ Following Python libraries:
 
 ### Installing Libraries
 Ensure you have the following libraries installed for your Arduino setup:
-- `DHT.h`
-- `ESP8266WiFi.h`
-- `PubSubClient.h`
+- `DHT`
+- `ESP8266WiFi`
+- `PubSubClient`
