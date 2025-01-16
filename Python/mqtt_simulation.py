@@ -7,12 +7,12 @@ import time
 # Add the path to the simulation script
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from src.simulation.simulation_data import simulate_temp, simulate_hum
+from simulation_data import simulate_temp, simulate_hum
 
 # Set up MQTT Broker Details
 broker = "localhost"
 port = 1883
-topic = "smart_home/temperature"
+topic = "home/temperature"
 
 # Create a client instance for MQTT
 client = mqtt.Client()
