@@ -3,7 +3,7 @@
 ## Project Overview
 This project aims to develop and simulate a smart home temperature and humidity monitoring system
 
-![Dashboard Screenshot](dashboard.png)
+![Dashboard Screenshot](./dashboard.png)
 
 ## Technologies Used
 - **MQTT**: For data communication
