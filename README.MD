@@ -15,8 +15,6 @@ This project aims to develop and simulate a smart home temperature and humidity 
 - **ESP8266 NodeMCU 1.0**: WiFi-enabled microcontroller for sending data online.
 - **Arduino Uno**: Microcontroller
 
-![Components Screenshot](./images/Hardware.png)
-
 ## Setup and Installation
 ### Prerequisites
 - Arduino IDE or any relevant development environment
@@ -24,13 +22,12 @@ This project aims to develop and simulate a smart home temperature and humidity 
 - MQTT broker setup (e.g., Mosquitto)
 
 # Dependencies
-following Python libraries:
+Following Python libraries:
 - `paho-mqtt`: For handling MQTT communications
 - `json`: For parsing and constructing JSON objects
 
 ### Installing Libraries
 Ensure you have the following libraries installed for your Arduino setup:
-```bash
-#include <DHT.h>
-#include <ESP8266WiFi.h>
-#include <PubSubClient.h>
+- `DHT`
+- `ESP8266WiFi`
+- `PubSubClient`
