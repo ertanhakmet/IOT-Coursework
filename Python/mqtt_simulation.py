@@ -12,7 +12,7 @@ from src.simulation.simulation_data import simulate_temp, simulate_hum
 # Set up MQTT Broker Details
 broker = "localhost"
 port = 1883
-topic = "smart_home/sensors"
+topic = "smart_home/temperature"
 
 # Create a client instance for MQTT
 client = mqtt.Client()
