@@ -30,10 +30,3 @@ Ensure you have the following libraries installed for your Arduino setup:
 #include <DHT.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-### MIT License
-
