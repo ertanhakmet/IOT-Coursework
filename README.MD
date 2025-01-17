@@ -15,7 +15,7 @@ This project aims to develop and simulate a smart home temperature and humidity 
 - **ESP8266 NodeMCU 1.0**: WiFi-enabled microcontroller for sending data online.
 - **Arduino Uno**: Microcontroller
 
-![Components Photo](./images/Hardware.png)
+![Schema](./images/Schema.png)
 
 ## Setup and Installation
 ### Prerequisites
