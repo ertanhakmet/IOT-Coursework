@@ -21,7 +21,7 @@ This project aims to develop and simulate a smart home temperature and humidity 
 ### Prerequisites
 - Arduino IDE or any relevant development environment
 - Access to Node-RED
-- MQTT broker setup (e.g., Mosquitto)
+- MQTT broker setup (Mosquitto)
 
 # Dependencies
 Following Python libraries:
