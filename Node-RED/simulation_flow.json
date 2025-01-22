@@ -1,8 +1,8 @@
 [
     {
-        "id": "d9e9050f0d96b86f",
+        "id": "2fdcabec007c535b",
         "type": "inject",
-        "z": "bc8a55acb64efd4f",
+        "z": "a7cd8bdf1612ea8a",
         "name": "",
         "props": [
             {
@@ -13,18 +13,18 @@
                 "vt": "str"
             }
         ],
-        "repeat": "3600",
+        "repeat": "1",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 500,
+        "x": 130,
+        "y": 60,
         "wires": [
             [
-                "1c6ffb50cccc49ee"
+                "25c179368132ecc4"
             ]
         ]
     }
