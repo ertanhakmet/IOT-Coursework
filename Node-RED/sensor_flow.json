@@ -1,6 +1,6 @@
 [
     {
-        "id": "b82567353e68fab8",
+        "id": "01d0800d83c1b3ab",
         "type": "tab",
         "label": "Flow 1",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "65182bd6c6f10ee0",
+        "id": "47aef58e4870be7a",
         "type": "ui_gauge",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "group": "a2ec76bb0a0e5972",
         "order": 2,
@@ -19,7 +19,7 @@
         "gtype": "gage",
         "title": "Home Temperature",
         "label": "Celcius",
-        "format": "{{value}}",
+        "format": "{{value}}°C",
         "min": "-10",
         "max": "50",
         "colors": [
@@ -36,9 +36,9 @@
         "wires": []
     },
     {
-        "id": "3829bddd38fabaed",
+        "id": "4a8a509f50b8a63d",
         "type": "ui_gauge",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "group": "a2ec76bb0a0e5972",
         "order": 8,
@@ -64,9 +64,9 @@
         "wires": []
     },
     {
-        "id": "8ec60903fc1578b2",
+        "id": "29e340dcc8fa4147",
         "type": "mqtt in",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "topic": "home/temperature",
         "qos": "2",
@@ -80,15 +80,15 @@
         "y": 200,
         "wires": [
             [
-                "4fd0a8da17df072b",
-                "fba26498a84a1b29"
+                "bb5b934c9a7573f2",
+                "769a50d25b1c1708"
             ]
         ]
     },
     {
-        "id": "fba26498a84a1b29",
+        "id": "769a50d25b1c1708",
         "type": "function",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "Extract Humidity",
         "func": "// Assuming the message payload is a parsed JavaScript object\nlet humidity = msg.payload.humidity;  // Extract the temperature property\n\n// Prepare the output message with the extracted temperature\nmsg.payload = humidity;\n\nreturn msg; // Return the message to be used by the next node\n",
         "outputs": 1,
@@ -101,14 +101,14 @@
         "y": 240,
         "wires": [
             [
-                "3829bddd38fabaed"
+                "4a8a509f50b8a63d"
             ]
         ]
     },
     {
-        "id": "4fd0a8da17df072b",
+        "id": "bb5b934c9a7573f2",
         "type": "function",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "Extract Temperature",
         "func": "// Assuming the message payload is a parsed JavaScript object\nlet temperature = msg.payload.temperature;  // Extract the temperature property\n\n// Prepare the output message with the extracted temperature\nmsg.payload = temperature;\n\nreturn msg; // Return the message to be used by the next node\n",
         "outputs": 1,
@@ -121,14 +121,14 @@
         "y": 160,
         "wires": [
             [
-                "65182bd6c6f10ee0"
+                "47aef58e4870be7a"
             ]
         ]
     },
     {
-        "id": "2526a50bf4efcd38",
+        "id": "bc45908badcca643",
         "type": "http request",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "method": "GET",
         "ret": "obj",
@@ -145,15 +145,15 @@
         "y": 400,
         "wires": [
             [
-                "360b03c5a4536ac4",
-                "891c4eda1c4e6ff4"
+                "2a1a0efb65651d85",
+                "78ca9d50844b2c2c"
             ]
         ]
     },
     {
-        "id": "360b03c5a4536ac4",
+        "id": "2a1a0efb65651d85",
         "type": "function",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "Get Outside Temp",
         "func": "// Extract the temperature from the payload\nif (msg.payload && msg.payload.days && msg.payload.days.length > 0) {\n    const todayWeather = msg.payload.days[0];\n    msg.payload = todayWeather.temp + \" °C\";\n} else {\n    msg.payload = \"Temperature data not available\";\n}\nreturn msg;\n",
         "outputs": 1,
@@ -166,14 +166,14 @@
         "y": 360,
         "wires": [
             [
-                "942b46fc41646a3c"
+                "e3e3595e94c7792d"
             ]
         ]
     },
     {
-        "id": "b75e1f64870364ae",
+        "id": "4c311aa3a2f7bf47",
         "type": "inject",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "props": [
             {
@@ -186,7 +186,7 @@
         ],
         "repeat": "3600",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
@@ -195,14 +195,14 @@
         "y": 400,
         "wires": [
             [
-                "2526a50bf4efcd38"
+                "bc45908badcca643"
             ]
         ]
     },
     {
-        "id": "891c4eda1c4e6ff4",
+        "id": "78ca9d50844b2c2c",
         "type": "function",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "Get Outside Hum",
         "func": "// Extract the humidity from the payload\nif (msg.payload && msg.payload.days && msg.payload.days.length > 0) {\n    const todayWeather = msg.payload.days[0];\n    msg.payload = todayWeather.humidity + \" %\"; // Assuming 'humidity' is stored under the 'humidity' key\n} else {\n    msg.payload = \"Humidity data not available\";\n}\nreturn msg;\n",
         "outputs": 1,
@@ -215,14 +215,14 @@
         "y": 440,
         "wires": [
             [
-                "8dfc8fc3e47f4bbb"
+                "a3ec9808286da3c2"
             ]
         ]
     },
     {
-        "id": "942b46fc41646a3c",
+        "id": "e3e3595e94c7792d",
         "type": "ui_gauge",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "group": "a2ec76bb0a0e5972",
         "order": 4,
@@ -248,9 +248,9 @@
         "wires": []
     },
     {
-        "id": "8dfc8fc3e47f4bbb",
+        "id": "a3ec9808286da3c2",
         "type": "ui_gauge",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "group": "a2ec76bb0a0e5972",
         "order": 10,
@@ -276,9 +276,9 @@
         "wires": []
     },
     {
-        "id": "fad91505755c1b98",
+        "id": "378c07f218812d29",
         "type": "function",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "Time",
         "func": "function addZero(i) {\n  return (i < 10) ? \"0\" + i : i;\n}\n\nvar now = new Date();\nvar hours = addZero(now.getHours());\nvar minutes = addZero(now.getMinutes());\nvar seconds = addZero(now.getSeconds());\nvar formattedTime = hours + \":\" + minutes + \":\" + seconds;\n\nmsg.payload = formattedTime;\nreturn msg;\n",
         "outputs": 1,
@@ -291,14 +291,14 @@
         "y": 60,
         "wires": [
             [
-                "9f5eadfd3c66cb87"
+                "3024b06020202f61"
             ]
         ]
     },
     {
-        "id": "a3fbb3c13d5d676e",
+        "id": "87d34d338a70b550",
         "type": "inject",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "props": [
             {
@@ -320,14 +320,14 @@
         "y": 60,
         "wires": [
             [
-                "fad91505755c1b98"
+                "378c07f218812d29"
             ]
         ]
     },
     {
-        "id": "9f5eadfd3c66cb87",
+        "id": "3024b06020202f61",
         "type": "ui_text",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "group": "a2ec76bb0a0e5972",
         "order": 1,
         "width": 0,
@@ -346,9 +346,9 @@
         "wires": []
     },
     {
-        "id": "fd78a7b22167813c",
+        "id": "b3e9206ab1b10ab5",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 3,
@@ -356,9 +356,9 @@
         "height": 1
     },
     {
-        "id": "c5b7b9c3dbca1b5b",
+        "id": "3e4c8624386e2198",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 5,
@@ -366,9 +366,9 @@
         "height": 1
     },
     {
-        "id": "694a9adcbb835892",
+        "id": "beef8ee63e65de99",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 6,
@@ -376,9 +376,9 @@
         "height": 1
     },
     {
-        "id": "6d54675624182f20",
+        "id": "34b39d9b10854f94",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 7,
@@ -386,9 +386,9 @@
         "height": 1
     },
     {
-        "id": "ec57109437701dbf",
+        "id": "3a62590f099a149f",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 9,
@@ -396,9 +396,9 @@
         "height": 1
     },
     {
-        "id": "a7bdd7097ca9e046",
+        "id": "4e2eed01951257b0",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 11,
@@ -406,9 +406,9 @@
         "height": 1
     },
     {
-        "id": "206bea91321d169c",
+        "id": "912a22c2308e112b",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 12,
@@ -416,9 +416,9 @@
         "height": 1
     },
     {
-        "id": "6f4422e0a2777f43",
+        "id": "3ae021b5317fd026",
         "type": "ui_spacer",
-        "z": "b82567353e68fab8",
+        "z": "01d0800d83c1b3ab",
         "name": "spacer",
         "group": "a2ec76bb0a0e5972",
         "order": 13,

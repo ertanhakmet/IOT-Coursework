@@ -1,8 +1,304 @@
 [
     {
-        "id": "2fdcabec007c535b",
+        "id": "01d0800d83c1b3ab",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "47aef58e4870be7a",
+        "type": "ui_gauge",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "group": "a2ec76bb0a0e5972",
+        "order": 2,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Home Temperature",
+        "label": "Celcius",
+        "format": "{{value}}°C",
+        "min": "-10",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4a8a509f50b8a63d",
+        "type": "ui_gauge",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "group": "a2ec76bb0a0e5972",
+        "order": 8,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Home Humidity",
+        "label": "Percentage",
+        "format": "{{value}}%",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "29e340dcc8fa4147",
+        "type": "mqtt in",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "topic": "home/temperature",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ac1ec762555769ad",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "bb5b934c9a7573f2",
+                "769a50d25b1c1708"
+            ]
+        ]
+    },
+    {
+        "id": "769a50d25b1c1708",
+        "type": "function",
+        "z": "01d0800d83c1b3ab",
+        "name": "Extract Humidity",
+        "func": "// Assuming the message payload is a parsed JavaScript object\nlet humidity = msg.payload.humidity;  // Extract the temperature property\n\n// Prepare the output message with the extracted temperature\nmsg.payload = humidity;\n\nreturn msg; // Return the message to be used by the next node\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "4a8a509f50b8a63d"
+            ]
+        ]
+    },
+    {
+        "id": "bb5b934c9a7573f2",
+        "type": "function",
+        "z": "01d0800d83c1b3ab",
+        "name": "Extract Temperature",
+        "func": "// Assuming the message payload is a parsed JavaScript object\nlet temperature = msg.payload.temperature;  // Extract the temperature property\n\n// Prepare the output message with the extracted temperature\nmsg.payload = temperature;\n\nreturn msg; // Return the message to be used by the next node\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 160,
+        "wires": [
+            [
+                "47aef58e4870be7a"
+            ]
+        ]
+    },
+    {
+        "id": "bc45908badcca643",
+        "type": "http request",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/LIverpool?unitGroup=uk&include=hours%2Cdays%2Ccurrent%2Cevents&key=QLCGU5SZTNBG48WCDFPSSWDWR&contentType=json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 400,
+        "wires": [
+            [
+                "2a1a0efb65651d85",
+                "78ca9d50844b2c2c"
+            ]
+        ]
+    },
+    {
+        "id": "2a1a0efb65651d85",
+        "type": "function",
+        "z": "01d0800d83c1b3ab",
+        "name": "Get Outside Temp",
+        "func": "// Extract the temperature from the payload\nif (msg.payload && msg.payload.days && msg.payload.days.length > 0) {\n    const todayWeather = msg.payload.days[0];\n    msg.payload = todayWeather.temp + \" °C\";\n} else {\n    msg.payload = \"Temperature data not available\";\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "e3e3595e94c7792d"
+            ]
+        ]
+    },
+    {
+        "id": "4c311aa3a2f7bf47",
         "type": "inject",
-        "z": "a7cd8bdf1612ea8a",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "bc45908badcca643"
+            ]
+        ]
+    },
+    {
+        "id": "78ca9d50844b2c2c",
+        "type": "function",
+        "z": "01d0800d83c1b3ab",
+        "name": "Get Outside Hum",
+        "func": "// Extract the humidity from the payload\nif (msg.payload && msg.payload.days && msg.payload.days.length > 0) {\n    const todayWeather = msg.payload.days[0];\n    msg.payload = todayWeather.humidity + \" %\"; // Assuming 'humidity' is stored under the 'humidity' key\n} else {\n    msg.payload = \"Humidity data not available\";\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 440,
+        "wires": [
+            [
+                "a3ec9808286da3c2"
+            ]
+        ]
+    },
+    {
+        "id": "e3e3595e94c7792d",
+        "type": "ui_gauge",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "group": "a2ec76bb0a0e5972",
+        "order": 4,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Outside Temperature",
+        "label": "Celcius",
+        "format": "{{value}}°C",
+        "min": "-10",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 740,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a3ec9808286da3c2",
+        "type": "ui_gauge",
+        "z": "01d0800d83c1b3ab",
+        "name": "",
+        "group": "a2ec76bb0a0e5972",
+        "order": 10,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Outside Humidity",
+        "label": "Percentage",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 730,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "378c07f218812d29",
+        "type": "function",
+        "z": "01d0800d83c1b3ab",
+        "name": "Time",
+        "func": "function addZero(i) {\n  return (i < 10) ? \"0\" + i : i;\n}\n\nvar now = new Date();\nvar hours = addZero(now.getHours());\nvar minutes = addZero(now.getMinutes());\nvar seconds = addZero(now.getSeconds());\nvar formattedTime = hours + \":\" + minutes + \":\" + seconds;\n\nmsg.payload = formattedTime;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "3024b06020202f61"
+            ]
+        ]
+    },
+    {
+        "id": "87d34d338a70b550",
+        "type": "inject",
+        "z": "01d0800d83c1b3ab",
         "name": "",
         "props": [
             {
@@ -20,12 +316,163 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
+        "x": 150,
         "y": 60,
         "wires": [
             [
-                "25c179368132ecc4"
+                "378c07f218812d29"
             ]
         ]
+    },
+    {
+        "id": "3024b06020202f61",
+        "type": "ui_text",
+        "z": "01d0800d83c1b3ab",
+        "group": "a2ec76bb0a0e5972",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "50",
+        "color": "#000000",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b3e9206ab1b10ab5",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3e4c8624386e2198",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "beef8ee63e65de99",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "34b39d9b10854f94",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3a62590f099a149f",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4e2eed01951257b0",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "912a22c2308e112b",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 12,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3ae021b5317fd026",
+        "type": "ui_spacer",
+        "z": "01d0800d83c1b3ab",
+        "name": "spacer",
+        "group": "a2ec76bb0a0e5972",
+        "order": 13,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a2ec76bb0a0e5972",
+        "type": "ui_group",
+        "name": "Inside & Outside Conditions",
+        "tab": "710790bd355ac1a3",
+        "order": 1,
+        "disp": true,
+        "width": "11",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ac1ec762555769ad",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "710790bd355ac1a3",
+        "type": "ui_tab",
+        "name": "Temperature and Humidity Monitoring",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
     }
 ]
