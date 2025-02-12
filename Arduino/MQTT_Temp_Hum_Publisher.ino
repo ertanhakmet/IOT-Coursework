@@ -2,9 +2,9 @@
 #include <PubSubClient.h>
 
 // WiFi and MQTT Configuration
-const char* ssid = "iPhone"; // change wifi name to yours       
-const char* password = "ertanhak"; // change password to yours
-const char* mqtt_server = "172.20.10.2"; // change ip address to yours   
+const char* ssid = ""; // change wifi name to yours       
+const char* password = ""; // change password to yours
+const char* mqtt_server = ""; // change ip address to yours   
 const char* mqtt_topic = "home/temperature";  
 
 WiFiClient espClient;
